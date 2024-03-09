@@ -1,6 +1,8 @@
 #include <string.h>
+#include <ctype.h>
 
-#include "utils.h"
+
+#include "headers/utils.h"
 
 int operationChecker(char *operation) {
     if (strcmp(operation, "+") == 0) {
@@ -16,9 +18,29 @@ int operationChecker(char *operation) {
     }
 }
 
+void toLowerCase(char *str) {
+    if (str) {
+        while (*str) {
+            *str = tolower((unsigned char) *str);
+            str++;
+        }
+    }
+}
+
 int numbersChecker(char *number) {
+    // TODO: finish implementing this shit
     // dois valores em ponto flutuante, NaN ou ±∞
-    return 1;
+    toLowerCase(number);
+    if (strcmp(number, "nan") == 0)
+        return 1;
+    if (strcmp(number, "+infinity") == 0)
+        return 1;   
+    if (strcmp(number, "-infinity") == 0)
+        return 1;
+
+    
+    else return 1;
+    // return 0;
 }
 
 float calculate(float a, char *operation, float b) {
@@ -26,35 +48,11 @@ float calculate(float a, char *operation, float b) {
         return a + b;
     } else if (strcmp(operation, "-") == 0) {
         return a - b;
-    } else if (strcmp(operation, "∗") == 0) {
+    } else if (strcmp(operation, "x") == 0) {
         return a * b;
     } else if (strcmp(operation, "/") == 0) {
         return a / b;
     } else {
         return 0;
     }
-}
-
-char* floatToBinary(float f) {
-    return "0 10000011 01010000000000000000000";
-}
-
-int isInexact(float resultado) {
-    return 0;
-}
-
-int isDivByZero(float segundoNumero) {
-    return 0;
-}
-
-int isUnderflow(float resultado) {
-    return 0;
-}
-
-int isOverflow(float resultado) {
-    return 0;
-}
-
-int isInvalidOperation(float resultado) {
-    return 0;
 }

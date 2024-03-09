@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 
-#include "utils.h"
+#include "headers/utils.h"
+#include "headers/ieee-stuff.h"
 
 
 int main(int argc, char *argv[]) {
@@ -35,6 +36,7 @@ int main(int argc, char *argv[]) {
             printf("Operação inválida.\n");
             return 0;
         }
+
 
 
     } else {
