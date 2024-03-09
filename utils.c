@@ -9,7 +9,7 @@ int operationChecker(char *operation) {
         return 1;
     } else if (strcmp(operation, "-") == 0) {
         return 1;
-    } else if (strcmp(operation, "∗") == 0) {
+    } else if (strcmp(operation, "x") == 0) {
         return 1;
     } else if (strcmp(operation, "/") == 0) {
         return 1;
@@ -38,8 +38,8 @@ int numbersChecker(char *number) {
     if (strcmp(number, "-infinity") == 0)
         return 1;
 
-    
-    else return 1;
+    printf("not implemented yet");
+    return 1;
     // return 0;
 }
 
