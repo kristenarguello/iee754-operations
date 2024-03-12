@@ -57,3 +57,38 @@ float calculate(float a, char *operation, float b) {
         return 0;
     }
 }
+
+// binary stuff
+struct IEEE754 {
+    unsigned int mantissa: 23;
+    unsigned int exponent: 8;
+    unsigned int sign: 1;
+};
+typedef union {
+    float f;
+    struct IEEE754 ieee;
+} binary;
+
+void printBinary(int n, int i)
+{
+    int k;
+    for (k = i - 1; k >= 0; k--) {
+ 
+        if ((n >> k) & 1)
+            printf("1");
+        else
+            printf("0");
+    }
+}
+
+void floatToBinary(char* val, float f) {
+    binary ieee;
+    ieee.f = f;
+    printf("%s = ", val);
+    printf("%d ", ieee.ieee.sign);
+    printBinary(ieee.ieee.exponent, 8);
+    printf(" ");
+    printBinary(ieee.ieee.mantissa, 23);
+    printf(" = %f\n", f);
+}
+

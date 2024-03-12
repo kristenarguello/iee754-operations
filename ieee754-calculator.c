@@ -1,83 +1,37 @@
+#include <fenv.h>
+#include <math.
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #include "headers/utils.h"
-#include "headers/ieee-stuff.h"
-
-/*
-TODOs:
-- conversion to binary
-- div by zero string result (not binary)
-- CHECK BUS ERROR
-- correct types of return to under and overflow
-- inexact operation
-- invalid operation
-- check normal calculator  
-*/ 
-
-
 
 int main(int argc, char *argv[]) {
     if (argc == 4) {
         float a = atof(argv[1]);
         char* operation = argv[2];
-        printf("%c", operation[0]); 
         float b = atof(argv[3]);
 
-        // int firstRounded = 0;
-        // int secondRounded = 0;
-
-        int overflow = 0;
-        int underflow = 0;
-        int divByZero = 0;
-
         if (operationChecker(operation) ) {
-            isDivByZero(a, b, &divByZero);
-
-            char* binaryA = floatToBinary(a);
-            char* binaryB = floatToBinary(b);
-            char* binaryResult = "";
-
-            float result = 0;
-            if (divByZero) {
-                int infSign = infinitySign(a);
-                char* infinity = "";
-                if (infSign == 0) {
-                    infinity = "+inf";
-                } else {
-                    infinity = "-inf";
-                }
-                sprintf(binaryResult, "%d 11111111 00000000000000000000000", infSign);
-
-                printf("Recebi %f %s %f e resultado deu %s\n", a, operation, b, infinity);
-                printf("val1 = %s = %f\n", binaryA, a);
-                printf("val2 = %s = %f\n", binaryB, b);
-                printf("result = %s = %s\n", binaryResult, infinity);
-
-            } else {
-                result = calculate(a, operation, b);
-                binaryResult = floatToBinary(result);
-                
-                // other exceptions checker
-                isUnderflow(result, a, b, &underflow); // still need to return the special value (denormalized number or 0)
-                isOverflow(result, a, b, &overflow); // still need to return the special value (infinity or max value)
-
-                printf("Recebi %f %s %f e resultado deu %f\n", a, operation, b, result);
-                
-                printf("val1 = %s = %f\n", binaryA, a);
-                printf("val2 = %s = %f\n", binaryB, b);
-                printf("result = %s = %f\n", binaryResult, result);
-            }
+            feclearexcept(FE_ALL_EXCEPT);            
+            float result = calculate(a, operation, b);
             
+            int exception_invalid = fetestexcept(FE_INVALID);
+            int exception_divbyzero = fetestexcept(FE_DIVBYZERO);
+            int exception_overflow = fetestexcept(FE_OVERFLOW);
+            int exception_underflow = fetestexcept(FE_UNDERFLOW);
+            int exception_inexact = fetestexcept(FE_INEXACT);
+            
+            printf("Recebi %f %s %f e resultado deu %f\n\n", a, operation, b, result);
+            floatToBinary("val1", a);
+            floatToBinary("val2", b);
+            floatToBinary("result", result);
             printf("\nFlags:\n");
-            // printf("FE_INEXACT: %d\n", isInexact(result, &firstRounded, &secondRounded)); // TODO
-            printf("FE_DIVBYZERO: %d\n", divByZero); 
-            printf("FE_UNDERFLOW: %d\n", underflow);
-            printf("FE_OVERFLOW: %d\n", overflow); 
-            // printf("FE_INVALID: %d\n", isInvalidOperation(result));
+            printf("FE_INEXACT: %d\n", exception_inexact != 0);
+            printf("FE_DIVBYZERO: %d\n", exception_divbyzero != 0);
+            printf("FE_UNDERFLOW: %d\n", exception_underflow != 0);
+            printf("FE_OVERFLOW: %d\n", exception_overflow != 0);
+            printf("FE_INVALID: %d\n", exception_invalid != 0);
 
-            return 1;
         } else {
             printf("Operação inválida.\n");
             return 0;
