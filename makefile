@@ -7,5 +7,5 @@ all:
 clean:
 	rm -f calculator
 	rm -rf ./objects
-
-
+	clear
+	
