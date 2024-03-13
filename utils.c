@@ -1,6 +1,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h> 
 
 
 #include "headers/utils.h"
@@ -19,31 +20,6 @@ int operationChecker(char *operation) {
     }
 }
 
-void toLowerCase(char *str) {
-    if (str) {
-        while (*str) {
-            *str = tolower((unsigned char) *str);
-            str++;
-        }
-    }
-}
-
-int numbersChecker(char *number) {
-    // TODO: finish implementing this shit
-    // dois valores em ponto flutuante, NaN ou ±∞
-    toLowerCase(number);
-    if (strcmp(number, "nan") == 0)
-        return 1;
-    if (strcmp(number, "+infinity") == 0)
-        return 1;   
-    if (strcmp(number, "-infinity") == 0)
-        return 1;
-
-    printf("not implemented yet");
-    return 1;
-    // return 0;
-}
-
 float calculate(float a, char *operation, float b) {
     if (strcmp(operation, "+") == 0) {
         return a + b;
@@ -58,6 +34,8 @@ float calculate(float a, char *operation, float b) {
     }
 }
 
+
+
 // binary stuff
 struct IEEE754 {
     unsigned int mantissa: 23;
@@ -69,26 +47,42 @@ typedef union {
     struct IEEE754 ieee;
 } binary;
 
-void printBinary(int n, int i)
+void getBit(int number, int size)
 {
-    int k;
-    for (k = i - 1; k >= 0; k--) {
+    int position;
+    for (position = size - 1; position >= 0; position--) {
  
-        if ((n >> k) & 1)
+        if ((number >> position) & 1)
             printf("1");
-        else
+        else 
             printf("0");
-    }
+    }   
 }
 
 void floatToBinary(char* val, float f) {
     binary ieee;
     ieee.f = f;
     printf("%s = ", val);
-    printf("%d ", ieee.ieee.sign);
-    printBinary(ieee.ieee.exponent, 8);
+
+    getBit(ieee.ieee.sign, 1);
     printf(" ");
-    printBinary(ieee.ieee.mantissa, 23);
+    getBit(ieee.ieee.exponent, 8);
+    printf(" ");
+    getBit(ieee.ieee.mantissa, 23);
+
     printf(" = %f\n", f);
 }
+
+int isFloat(char *str) {
+    char *endptr;
+    strtod(str, &endptr);
+
+    if (*endptr != '\0') {
+        return 0; 
+    }
+    return 1;
+}
+
+
+
 

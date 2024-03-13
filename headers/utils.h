@@ -1,6 +1,6 @@
 int operationChecker(char *operation);
-int numbersChecker(char *number);
 float calculate(float a, char *operation, float b);
+int isFloat(char *str);
 
 void floatToBinary(char* val, float f);
-void printBinary(int n, int i);
+void getBit(int number, int size);
