@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 #include "headers/utils.h"
 
 int main(int argc, char *argv[]) {
@@ -22,7 +21,7 @@ int main(int argc, char *argv[]) {
                 int exception_underflow = fetestexcept(FE_UNDERFLOW);
                 int exception_inexact = fetestexcept(FE_INEXACT);
                 
-                printf("Recebi %f %s %f e resultado deu %f\n\n", a, operation, b, result);
+                printf("\nGot %f %s %f and the result is %f\n\n", a, operation, b, result);
                 floatToBinary("val1", a);
                 floatToBinary("val2", b);
                 floatToBinary("result", result);
@@ -31,13 +30,16 @@ int main(int argc, char *argv[]) {
                 printf("FE_DIVBYZERO: %d\n", exception_divbyzero != 0);
                 printf("FE_UNDERFLOW: %d\n", exception_underflow != 0);
                 printf("FE_OVERFLOW: %d\n", exception_overflow != 0);
-                printf("FE_INVALID: %d\n", exception_invalid != 0);
-
+                printf("FE_INVALID: %d\n\n", exception_invalid != 0);
+                return 1;
             }
+            printf("The operation %s is not valid. Try one of these: + - x / \n", operation);
+            return 0;
         }
-        return 1;
+        printf("The arguments %s and %s are not valid floating-point numbers\n", argv[1], argv[3]);
+        return 0;
     }
-    printf("Essa calculadora de ponto flutuante no padrão IEEE-754 exige exatamente 3 argumentos. Sendo o primeiro e o último números de pontos flutuantes válidos e o do meio uma operações aceitas (+ - / x) \n");
+    printf("This IEEE-754 floating-point calculator requires exactly 3 arguments. \n");
     return 0;
 }
 

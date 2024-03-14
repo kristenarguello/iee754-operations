@@ -27,7 +27,7 @@ Exceção FE_INVALID: 0
 *Atenção:* faça este trabalho em C. Não faça em Python, não faça em Java. Aqui estão (apenas alguns) motivos:
 Da espeicificação da máquina virtual java:
 The floating-point operations of the Java Virtual Mahine do not throw
-exeptions, trap, or otherwise signal the IEEE 754 exeptional onditions
+exeptions, trap, or otherwise signal the IEEE 754 exeptional conditions
 of invalid operation, division by zero, overflow, underflow, or inexat.
 The Java Virtual Mahine has no signaling NaN value.`
 Sobre Python: voê pode ter alguma esperança usando numpy e numpy.seterr, mas vai estar correndo riscos. A responsabilidade é toda sua e a chance de arrependimento é alta.
