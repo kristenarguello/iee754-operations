@@ -1,5 +1,5 @@
 # Trabalho I - Métodos Numéricos
-## Prof. João B. Oliveira
+### Prof. João B. Oliveira
 
 Seu primeiro trabalho nesta disciplina consiste em explorar o padrão IEEE-754. Você deve implementar um programa que cumpra as seguintes tarefas:
 
@@ -32,3 +32,6 @@ of invalid operation, division by zero, overflow, underflow, or inexat.
 The Java Virtual Mahine has no signaling NaN value.`
 Sobre Python: voê pode ter alguma esperança usando numpy e numpy.seterr, mas vai estar correndo riscos. A responsabilidade é toda sua e a chance de arrependimento é alta.
 
+
+## Info sobre o Makefile:
+Comando `make` para gerar o executável a partir do Makefile -> `./calculator` é o nome do executável que será gerado. 

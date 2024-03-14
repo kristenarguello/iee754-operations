@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h> 
 
-
 #include "headers/utils.h"
 
 int operationChecker(char *operation) {
@@ -35,7 +34,6 @@ float calculate(float a, char *operation, float b) {
 }
 
 
-
 // binary stuff
 struct IEEE754 {
     unsigned int mantissa: 23;
@@ -51,7 +49,6 @@ void getBit(int number, int size)
 {
     int position;
     for (position = size - 1; position >= 0; position--) {
- 
         if ((number >> position) & 1)
             printf("1");
         else 
@@ -76,7 +73,6 @@ void floatToBinary(char* val, float f) {
 int isFloat(char *str) {
     char *endptr;
     strtod(str, &endptr);
-
     if (*endptr != '\0') {
         return 0; 
     }
